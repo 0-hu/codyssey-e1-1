@@ -108,8 +108,15 @@ yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker info
 
 # Ubuntu 컨테이너 진입 테스트
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker run -it --name my-ubuntu ubuntu bash
-root@a1b2c3d4e5f6:/# ls -F
-root@a1b2c3d4e5f6:/# exit
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker run -it --name my-ubuntu ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+817807f3c64e: Pull complete 
+Digest: sha256:186072bba1b2f436cbb91ef2567abca677337cfc786c86e107d25b7072feef0c
+Status: Downloaded newer image for ubuntu:latest
+root@ea73df58f536:/# ls -F
+bin@  boot/  dev/  etc/  home/  lib@  lib64@  media/  mnt/  opt/  proc/  root/  run/  sbin@  srv/  sys/  tmp/  usr/  var/
+root@ea73df58f536:/# exit
 ```
 
 ### 커스텀 이미지 제작 (Dockerfile)
@@ -126,6 +133,17 @@ yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker run -d -p 8080:80 --name web-server
 
 # 접속 확인
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % curl http://localhost:8080
+
+# 상태 검증
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+my-web       1.0       74bcd917f983   6 minutes ago   62.2MB
+ubuntu       latest    f794f40ddfff   5 weeks ago     78.1MB
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker ps -a
+CONTAINER ID   IMAGE        COMMAND                   CREATED          STATUS                     PORTS                                     NAMES
+2db9979e9a85   my-web:1.0   "/docker-entrypoint.…"   6 minutes ago    Up 6 minutes               0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   web-server
+ea73df58f536   ubuntu       "bash"                    11 minutes ago   Exited (0) 9 minutes ago                                             my-ubuntu
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % 
 ```
 
 ---
@@ -138,14 +156,28 @@ docker volume 구성을 통한 볼륨 영속성 검증
 # 볼륨 생성 및 연결
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker volume create my-data
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker run -d --name vol-test -v my-data:/app-data ubuntu sleep infinity
+816e3df86d7d1dbf7da333cae6807146c980b2dca5fbb587db6b60de3c8f9ea3
 
 # 데이터 쓰기 및 컨테이너 강제 삭제
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker exec vol-test sh -c "echo 'preserved' > /app-data/log.txt"
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker rm -f vol-test
+vol-test
 
 # 새로운 컨테이너에서 데이터 유지 확인
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker run --rm -v my-data:/app-data ubuntu cat /app-data/log.txt
 preserved
+
+# 새로운 컨테이너에서 데이터 유지 확인
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker ps -a
+CONTAINER ID   IMAGE        COMMAND                   CREATED          STATUS                      PORTS                                     NAMES
+2db9979e9a85   my-web:1.0   "/docker-entrypoint.…"   10 minutes ago   Up 9 minutes                0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   web-server
+ea73df58f536   ubuntu       "bash"                    15 minutes ago   Exited (0) 12 minutes ago                                             my-ubuntu
+
+# 새로운 컨테이너에서 데이터 유지 확인
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker volume ls
+DRIVER    VOLUME NAME
+local     my-data
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % 
 ```
 
 ---
