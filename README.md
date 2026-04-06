@@ -1,6 +1,6 @@
 # 코디세이 E1-1 
 
-> 터미널(CLI), Docker(컨테이너), Git/GitHub(버전 관리)의 핵심 도구 사용법과 구조적 원리를 익히는 것을 목표로 합니다.
+> 터미널(CLI), Docker(컨테이너), Git/GitHub(버전 관리) 활용 및 증적.
 
 ---
 
@@ -32,7 +32,7 @@
 
 ## 📂 Step 1 — 터미널 및 권한 실습
 
-터미널 CLI를 통한 파일 조작과 리눅스 권한 시스템을 학습했습니다.
+터미널 CLI를 통한 파일 조작(pwd, ls, touch, cp, mv, rm)과 리눅스 권한 시스템(chmod)을 진행했습니다.
 
 ```bash
 # 현재 디렉토리 위치 확인
@@ -99,7 +99,7 @@ chmod 755  →  111 101 101  →  rwxr-xr-x  (변경 후)
 
 ## 🐳 Step 2 — Docker 기본 및 커스텀 이미지
 
-OrbStack 환경에서 컨테이너의 격리성을 확인했습니다.
+docker 명령(run, info, build 등) 및 컨테이너 관리.
 
 ```bash
 # Docker 버전 및 상태 점검
@@ -130,9 +130,9 @@ yhkwon.net4691@c3r6s7 codyssey-e1-1 % curl http://localhost:8080
 
 ---
 
-## 💾 Step 3 — 볼륨 영속성 검증
+## 💾 Step 3 — 볼륨 영속성 검증 
 
-컨테이너 수명 주기와 무관한 데이터 보존 방식을 검증했습니다.
+docker volume 구성을 통한 볼륨 영속성 검증
 
 ```bash
 # 볼륨 생성 및 연결
@@ -190,7 +190,7 @@ yhkwon.net4691@c3r6s7 codyssey-e1-1 % docker-compose exec web ping -c 3 db
 
 ## 🔑 Step 5 (Bonus) — Git 설정 및 SSH 연동
 
-GitHub 저장소와의 보안 연결을 설정했습니다.
+GitHub 저장소 연동 및 SSH 연동.
 
 ```bash
 # Git 사용자 설정
@@ -210,7 +210,7 @@ Hi 0-hu! You've successfully authenticated...
 
 ## 🔧 트러블슈팅
 
-### Case 1 — Port Conflict
+### Case 1 — Port Conflict(다른 프로세스에서 사용중인 포트와 충돌)
 
 | 항목 | 내용 |
 |------|------|
