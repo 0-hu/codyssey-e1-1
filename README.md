@@ -441,8 +441,25 @@ Hi 0-hu! You've successfully authenticated...
 | 항목 | 내용 |
 |------|------|
 | 현상 | `docker run` 시 포트 사용 중 에러 발생 |
-| 원인 | 이전 실습에서 실행한 `web-server`가 8080 포트를 점유함 |
-| 해결 | `docker rm -f web-server` 명령으로 기존 컨테이너를 정리 후 재실행 |
+| 원인 | 이전 실습에서 실행한 `my-web`가 8080 포트를 점유함 |
+| 해결 | `docker rm -f my-web` 명령으로 기존 컨테이너를 정리 후 재실행 |
+
+**원인 진단 순서**
+```bash
+# 1. 포트 점유 프로세스 확인
+lsof -i :8080
+
+# 2. 출력 예시
+# COMMAND   PID  USER   FD   TYPE  NODE NAME
+# docker   1234  user  ...  IPv4  ...  *:8080 (LISTEN)
+
+# 3. 컨테이너가 원인인 경우 정리 후 재실행
+docker rm -f my-web
+docker run -d -p 8080:8080 --name my-web nginx
+```
+
+`lsof -i :포트번호` 로 해당 포트를 점유 중인 PID와 프로세스명을 확인하고,
+Docker 컨테이너가 원인임을 파악한 뒤 `docker rm -f` 로 정리하여 해결.
 
 ### Case 2 — `.env` 파일 인식 문제
 
