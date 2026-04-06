@@ -15,13 +15,14 @@
 | Docker | 27.x (OrbStack) |
 | Git | 2.x |
 
+간단한 작업 파일과 문제, 풀이 내용에 대한 파일들은 최상단 디렉토리에 위치하였고, 실습을 위한 index.html은 src 디렉토리 하위에 위치하도록 하였습니다.
 ```bash
 yhkwon.net4691@c3r6s7 codyssey-e1-1 % find . -maxdepth 2 # 현재 디렉토리 구조 조회
 .
 ./dockerfile # 도커 예제 실행을 위한 dockerfile
-./E1-1.md # E1-1 문제 파일
+./E1-1.md # E1-1 문제 파일, 문제를 빠르게 확인하며 진행하기 위해 최상단 디렉토리에 위치
 ./README.md # 문제 풀이 파일
-./src/index.html # hello world codyssey 출력하는 간단한 html 소스
+./src/index.html # hello world codyssey 출력하는 간단한 html 소스, 예제를 위한 소스코드라 src 폴더 하위에 위치시킴
 ```
 
 ---
