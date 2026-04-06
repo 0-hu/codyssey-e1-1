@@ -15,6 +15,15 @@
 | Docker | 27.x (OrbStack) |
 | Git | 2.x |
 
+```bash
+yhkwon.net4691@c3r6s7 codyssey-e1-1 % find . -maxdepth 2 # 현재 디렉토리 구조 조회
+.
+./dockerfile # 도커 예제 실행을 위한 dockerfile
+./E1-1.md # E1-1 문제 파일
+./README.md # 문제 풀이 파일
+./src/index.html # hello world codyssey 출력하는 간단한 html 소스
+```
+
 ---
 
 ## ✅ 수행 항목 체크리스트
@@ -100,6 +109,7 @@ chmod 755  →  111 101 101  →  rwxr-xr-x  (변경 후)
 ## 🐳 Step 2 — Docker 기본 및 커스텀 이미지
 
 docker 명령(run, info, build 등) 및 컨테이너 관리.
+
 
 ```bash
 # Docker 버전 및 상태 점검
@@ -244,7 +254,7 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
- 
+
 ```
 
 ### 커스텀 이미지 제작 (Dockerfile)
